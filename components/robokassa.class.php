@@ -48,33 +48,33 @@ class Robokassa
 		// email
 			$email = $order['email'];
 	
-		// номер заказа
+		// Order Number
 			$inv_id = $order['inv_id'];
 		
-		// описание заказа
+		// Description of the order
 			$inv_desc = $order['description'];
 		
-		// сумма заказа
+		// Ammount of order
 			$out_summ = $order['sum'];
 		
-		// тип товара
+		// Type of Product
 			$shp_item = $order['ids'];
 		
-		// предлагаемая валюта платежа
+		// Proposed payment currency
 			$in_curr = "WMZM";
 		
-		// язык
+		// Language
 			$culture = "ru";
 		
-		// кодировка
+		// encoding
 			$encoding = $this->encoding;
 		
-		// формирование подписи, порядок важен
-			$crc_fields['Логин'] = $this->Username;
-			$crc_fields['Сумма заказа'] = $out_summ;
-			$crc_fields['Индивидуальный номер заказа'] = $inv_id;
-			$crc_fields['Платежный пароль №1'] = $this -> Signature1;
-			$crc_fields['Строка дополнительных параметров'] = "Shp_item=".$shp_item;
+		// Signature generation, the order is important
+			$crc_fields['login'] = $this->Username;
+			$crc_fields['Order Amount'] = $out_summ;
+			$crc_fields['individual order number'] = $inv_id;
+			$crc_fields['number 1 payment password'] = $this -> Signature1;
+			$crc_fields['string of additional parameters'] = "Shp_item=".$shp_item;
 			$crc  = md5( implode(':',$crc_fields) );
 		
 		$params = array();
@@ -112,14 +112,14 @@ class Robokassa
 		$SignatureValue = $request['SignatureValue'];
 		$shp_item = $request['Shp_item'];
 		
-		// формирование подписи, порядок важен
-			$crc_fields['Сумма заказа'] = $out_summ;
-			$crc_fields['Индивидуальный номер заказа'] = $inv_id;
-			$crc_fields['Платежный пароль №2'] = $this -> Signature2;
-			$crc_fields['Строка дополнительных параметров'] = "Shp_item=".$shp_item;
-			$crc  = strtoupper(md5( implode(':',$crc_fields) ));
+		// Signature generation, the order is important
+    $crc_fields['order_amount'] = $out_summ;
+    $crc_fields['indiv_order_id'] = $inv_id;
+    $crc_fields['pass_two'] = $this -> Signature2;
+    $crc_fields['params'] = "Shp_item=".$shp_item;
+    $crc  = strtoupper(md5( implode(':',$crc_fields) ));
 		
-		// все путем, продолжаем
+		// All the way through , we continue to
 		if ($SignatureValue == $crc)
 			return true;
 		else
@@ -127,5 +127,4 @@ class Robokassa
 	}
 	
 	
-}  // End class Robokassa
-?>
+}
