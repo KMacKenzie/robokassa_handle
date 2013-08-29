@@ -1,0 +1,3 @@
+name = Robokassa Handler
+description = This module works as an API for other modules to integrate with Robokassa
+core = 7.x
