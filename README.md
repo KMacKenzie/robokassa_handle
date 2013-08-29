@@ -1,5 +1,5 @@
 Robokassa payment module for Drupal
 =================================
 
-### This is mostly an experiment
+### Re-shaping this module to work with Ubercart and Drupal - This is somewhat of an experiement, so use this code with caution.
 
